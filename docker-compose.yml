@@ -1,0 +1,39 @@
+version: '3.8'
+
+networks:
+  auth-network:
+    driver: bridge
+services:
+  mydb:
+    image: mysql:8.0
+    container_name: auth-db
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_PASS
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    networks:
+      - auth-network
+
+  app:
+    build:
+      context: .
+      dockerfile: ./dockerfile
+    container_name: auth-api-v0.1
+    networks:
+      - auth-network
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: mysql://${MYSQLDB_USER}:${MYSQLDB_PASS}@auth-db:${MYSQLDB_DOCKER_PORT}/${MYSQLDB_DATABASE}
+    env_file:
+      - .env
+    ports:
+      - $SERVER_PORT:$SERVER_PORT
+    depends_on:
+      - mydb
+    volumes:
+      - ./prisma/schema.prisma:/usr/src/app/prisma/schema.prisma
+volumes:
+  temp-db:

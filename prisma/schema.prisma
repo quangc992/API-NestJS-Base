@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// npx prisma migrate dev --name init
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// generator client {
+//   provider      = "prisma-client-js"
+//   binaryTargets = ["native"]
+//   // platforms     = ["native", "linux-musl-openssl-3.0.x"]
+// }
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native"]
+} 
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+}
+//        
+//mysql://${env('MYSQLDB_USER')}:${env('MYSQLDB_PASS')}@${env('MYSQLDB_HOST')}:${env('MYSQLDB_LOCAL_PORT')}/${env('MYSQLDB_DATABASE')}
+model ClientAccount {
+  AccountId   String   @id @unique @default(uuid())
+  LoginName   String   @unique
+  FirstName   String?
+  LastName    String?
+  Description String?
+  RoleId      Role
+  CreatedAt   DateTime @default(now())
+  UpdateAt    DateTime @updatedAt
+}
+
+model ClientLogin {
+  AccountId               String            @id
+  LoginName               String            @unique
+  PasswordHash            String
+  PasswordSalt            Int
+  EmailAddress            String            @unique
+  HashAlgorithmId         HashingAlgorithms
+  AccessToken             String?
+  RefreshToken            String?
+  ConfirmationToken       String? // chua token xac nhan account
+  TokenGenerationTime     DateTime? // time token duoc tao ra
+  EmailValidationStatusId Int? // trang thai xac thuc email
+  PasswordRecoveryToken   String? // token khoi phuc mat khau
+  RecoveryTokenTime       DateTime? // time token khoi phuc mat khau
+}
+
+enum HashingAlgorithms {
+  BCRYPT
+  ARGON2
+}
+
+enum Role {
+  SUPERADMIN
+  MOD
+  USER
+}
