@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "docker-compose.yml", "use": "@vercel/docker-compose" }
+  ],
+  "routes": [{ "src": "/(.*)", "dest": "/docker-compose.yml" }]
+}
