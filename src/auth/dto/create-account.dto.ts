@@ -9,7 +9,7 @@ export class CreateAccountDto {
   @MaxLength(30)
   LoginName: string;
 
-  @ApiProperty({ default: 'string@gmail.com' })
+  @ApiProperty({ default: 'string@Mail.com' })
   @IsEmail()
   @IsNotEmpty()
   @MinLength(4)

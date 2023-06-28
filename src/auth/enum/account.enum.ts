@@ -15,5 +15,3 @@ export enum AccountValidationStatus {
   FAILED = 2,
   PENDING = 3,
 }
-
-// export default AccountEncodePass;

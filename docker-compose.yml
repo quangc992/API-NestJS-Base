@@ -16,24 +16,5 @@ services:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     networks:
       - auth-network
-
-  app:
-    build:
-      context: .
-      dockerfile: ./dockerfile
-    container_name: auth-api-v0.1
-    networks:
-      - auth-network
-    restart: unless-stopped
-    environment:
-      DATABASE_URL: mysql://${MYSQLDB_USER}:${MYSQLDB_PASS}@auth-db:${MYSQLDB_DOCKER_PORT}/${MYSQLDB_DATABASE}
-    env_file:
-      - .env
-    ports:
-      - $SERVER_PORT:$SERVER_PORT
-    depends_on:
-      - mydb
-    volumes:
-      - ./prisma/schema.prisma:/usr/src/app/prisma/schema.prisma
 volumes:
   temp-db:

@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { MinLength, IsEmail, MaxLength, IsNotEmpty, IsString } from 'class-validator';
 
 export class UpdateAccountDto {
-  // @ApiProperty({ default: 'string@gmail.com' })
+  // @ApiProperty({ default: 'string@Mail.com' })
   // @IsEmail()
   // @IsNotEmpty()
   // @MinLength(4)

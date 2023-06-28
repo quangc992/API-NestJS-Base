@@ -1,16 +1,9 @@
-import {
-  Body,
-  Controller,
-  Post,
-  Req,
-  UseGuards,
-  Headers,
-} from '@nestjs/common';
-import { AuthService } from '../service/auth.service';
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
+import { AuthService } from '../service/auth.service';
 import { CreateAccountDto, LoginAccountDto, refreshTokenDto } from '../dto/index.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -20,7 +13,6 @@ export class AuthController {
   @Post('register')
   async register(
     @Body() createAccount: CreateAccountDto,
-    @Req() req: any,
   ) {
     return await this.authService.register(createAccount);
   }
@@ -33,8 +25,7 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @Post('logout')
-  async logout(@Req() req: any) { //@Headers() headers: any, 
-    // const token = String(headers.authorization).split(" ")[1];
+  async logout(@Req() req: any) {
     return await this.authService.logout(req.ClientLogin);
   }
 

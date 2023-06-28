@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestj
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 
-import { AuthService } from './service/auth.service';
 import { AuthRepository } from './repository/auth.repository';
 
 @Injectable()
@@ -23,7 +22,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     const ClientLogin = await this.authRepository.getSingleAuthByLoginName({ LoginName });
 
     if (token !== ClientLogin['AccessToken']) {
-      throw new HttpException('---FORBIDDEN---', HttpStatus.FORBIDDEN);
+      throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     }
     return ClientLogin;
   }
