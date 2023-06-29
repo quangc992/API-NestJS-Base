@@ -1,0 +1,1 @@
+export * from './callMailTm.api.dto'

@@ -2,12 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { MinLength, IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class SendMailDto {
-  @ApiProperty(
-    {
-      default: 'example@gmail.com',
-      description: 'Email address of the recipient'
-    }
-  )
+  @ApiProperty({
+    default: 'example@gmail.com',
+    description: 'Email address of the recipient'
+  })
   @IsNotEmpty()
   @MinLength(5)
   @IsEmail()

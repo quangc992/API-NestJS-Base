@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, HttpException, HttpStatus, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {  HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AuthRepository } from '../repository/auth.repository';
 import * as bcrypt from 'bcrypt';
 
@@ -16,7 +16,7 @@ export class AuthService {
   ) { }
 
 
-  async register(createAccount: CreateAccountDto): Promise<object> {
+  public async register(createAccount: CreateAccountDto): Promise<object> {
     try {
       const saltNumber = await this._randomSalt();
       const PasswordHash = await bcrypt.hash(createAccount.Password, saltNumber)
@@ -57,7 +57,7 @@ export class AuthService {
     }
   }
 
-  async login(loginAccountDto: LoginAccountDto): Promise<object> {
+  public async login(loginAccountDto: LoginAccountDto): Promise<object> {
     try {
       const account = await this.authRepository.getSingleAuthByLoginName({ LoginName: loginAccountDto.LoginName })
       if (!account) return new HttpException('Not Found', HttpStatus.NOT_FOUND);
@@ -74,7 +74,7 @@ export class AuthService {
     }
   }
 
-  async logout(ClientLogin: any): Promise<object> {
+  public async logout(ClientLogin: any): Promise<object> {
     try {
       await this.authRepository.updateAuth({
         where: { AccountId: ClientLogin.AccountId },
@@ -91,9 +91,8 @@ export class AuthService {
     }
   }
 
-  async refreshToken(refreshTokenDto: refreshTokenDto): Promise<object> {
+  public async refreshToken(refreshTokenDto: refreshTokenDto): Promise<object> {
     try {
-      console.log(refreshTokenDto.RefreshToken)
       const payloadJwt = await this.jwtService.verify(refreshTokenDto.RefreshToken,
         {
           secret: process.env.REFRESH_TOKEN_SECRET,
@@ -110,7 +109,7 @@ export class AuthService {
     }
   }
 
-  async _createToken(payload: object, isRefresh = false): Promise<object> {
+  public async _createToken(payload: object, isRefresh = false): Promise<object> {
     try {
       const accessToken = await this._createAccessToken(payload)
       if (isRefresh) {
@@ -131,7 +130,7 @@ export class AuthService {
     }
   }
 
-  async _createAccessToken(payload: any): Promise<object> {
+  private async _createAccessToken(payload: any): Promise<object> {
     try {
       const privateKey_access = process.env.ACCESS_TOKEN_SECRET;
       const expiresIn_access = Number(process.env.ACCESS_TOKEN_EXPIRE);
@@ -157,7 +156,7 @@ export class AuthService {
     }
   }
 
-  async _createRefreshToken(payload: any): Promise<object> {
+  private async _createRefreshToken(payload: any): Promise<object> {
     try {
       const privateKey_refresh = process.env.REFRESH_TOKEN_SECRET;
       const expiresIn_refresh = Number(process.env.REFRESH_TOKEN_EXPIRE);
@@ -183,7 +182,7 @@ export class AuthService {
     }
   }
 
-  async _randomSalt(): Promise<number> {
+  private async _randomSalt(): Promise<number> {
     var salt = Math.floor(Math.random() * 3) + 8;
     return salt;
   }
