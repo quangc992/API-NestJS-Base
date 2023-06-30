@@ -17,7 +17,7 @@ localhost:1111/api
 - Logout
 - Refresh token (Refresh refresh token)
 
-# mail google
+# mail google SMTP
 
 - Send gmail google
 
