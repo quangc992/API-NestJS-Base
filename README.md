@@ -3,17 +3,17 @@
 
 - is in the process of development
 
-## run project with dev environment (step by step)
+## step by step
 
-- Rename env, remove the keyword example, and add the necessary information in it
+- rename env, remove the keyword example, and add the necessary information in it
 
-- Docker compose up (mysql)
+- docker compose up (mysql)
 
 - npm run start or npm run start:dev
 
 - swagger : localhost:1111/api
 
-### brief description
+## brief description
 
 - auth JWT ( single device login )
     - Register
