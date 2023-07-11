@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "single-api-base",
   "builds": [
     {
       "src": "src/main.ts",
@@ -9,7 +10,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/main.ts",
+      "dest": "dist/main.js",
       "methods": ["GET", "POST", "PUT", "PATCH", "DELETE"]
     }
   ]
