@@ -23,12 +23,6 @@ export class MailController {
     return await this.mailService.remove(payload);
   }
 
-  @ApiOperation({ summary: 'Get token' })
-  @Post('token')
-  async getToken(@Body() payload: API_FormatCreateDTO): Promise<string> {
-    return await this.mailService.getToken(payload);
-  }
-
   @ApiOperation({ summary: 'Get message by page' })
   @Get('messages')
   async getMessages(@Query() payload: TokenAndNumberPageDTO):Promise<object>{
@@ -40,5 +34,10 @@ export class MailController {
   async deleteMessages(@Body() payload: TokenAndIdDTO):Promise<object>{
     return await this.mailService.removeMessages(payload);
   }
+  
+  @ApiOperation({ summary: 'Get token' })
+  @Post('token')
+  async getToken(@Body() payload: API_FormatCreateDTO): Promise<string> {
+    return await this.mailService.getToken(payload);
+  }
 }
-
