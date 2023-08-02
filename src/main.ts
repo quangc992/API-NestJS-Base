@@ -25,7 +25,7 @@ async function bootstrap() {
   const urlSwagger = 'api'
   const config = new DocumentBuilder()
     .setTitle('Authentication Service')
-    .setDescription('API auth and other functions')
+    .setDescription('API authentication and other functions for creating tools')
     .setVersion(configService.get<string>('app_version'))
     .addBearerAuth()
     .build();
