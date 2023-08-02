@@ -29,7 +29,7 @@ export class AuthService {
         RoleId: AccountRole.USER,
       };
       const account = await this.accountRepository.createAccount(_createClientAccount)
-
+      // bug
       const _createClientLogin = {
         AccountId: account['AccountId'],
         LoginName: account['LoginName'],
