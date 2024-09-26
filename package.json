@@ -35,6 +35,7 @@
     "@types/bcrypt": "^5.0.0",
     "@types/passport-jwt": "^3.0.8",
     "@types/passport-local": "^1.0.35",
+    "aws-sdk": "^2.1427.0",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
